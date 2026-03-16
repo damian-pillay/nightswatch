@@ -5,10 +5,6 @@ import MovieCard from './MovieCard.vue'
 defineProps<{
   movies: Movie[]
 }>()
-
-const emit = defineEmits<{
-  delete: [id: string]
-}>()
 </script>
 
 <template>
@@ -17,7 +13,6 @@ const emit = defineEmits<{
       v-for="movie in movies" 
       :key="movie.id" 
       :movie="movie"
-      @delete="emit('delete', $event)"
     />
   </div>
 </template>

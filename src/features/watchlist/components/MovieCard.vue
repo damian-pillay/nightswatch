@@ -1,23 +1,24 @@
 <script setup lang="ts">
 import type { Movie } from '../types'
+import { useMovieStore } from '../stores/movieStore'
+import RedactedPoster from './RedactedPoster.vue'
 
 defineProps<{
   movie: Movie
 }>()
 
-const emit = defineEmits<{
-  delete: [id: string]
-}>()
+const { deleteMovie } = useMovieStore()
 </script>
 
 <template>
   <div class="movie-card">
-    <img :src="movie.poster" :alt="movie.title" class="poster" />
+    <img v-if="movie.poster" :src="movie.poster" :alt="movie.title" class="poster" />
+    <RedactedPoster v-else />
     <div class="info">
       <h3 class="title">{{ movie.title }}</h3>
       <span class="year">{{ movie.year }}</span>
     </div>
-    <button class="delete-btn" @click="emit('delete', movie.id)">×</button>
+    <button class="delete-btn" @click="deleteMovie(movie.id)">×</button>
   </div>
 </template>
 

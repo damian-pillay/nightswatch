@@ -2,7 +2,8 @@
 import { ref } from 'vue'
 
 const emit = defineEmits<{
-  add: [movie: { title: string; year: number; poster: string }]
+  add: [movie: { title: string; year: number; poster?: string }]
+  close: []
 }>()
 
 const title = ref('')
@@ -15,7 +16,7 @@ const handleSubmit = () => {
   emit('add', {
     title: title.value.trim(),
     year: year.value || new Date().getFullYear(),
-    poster: poster.value.trim() || 'https://image.tmdb.org/t/p/w500/2CAL2433ZeIihfX1Hb2139CX0pW.jpg'
+    poster: poster.value.trim() || undefined
   })
   
   title.value = ''
