@@ -1,22 +1,44 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
+import { MongoClient } from "mongodb";
+import { config } from "dotenv";
+config();
 
-// A schema is a collection of type definitions (hence "typeDefs")
-// that together define the "shape" of queries that are executed against
-// your data.
+const client = new MongoClient(`${process.env.MONGO_CONNECTION_STRING}`);
+await client.connect();
+
+console.log("✅ Connected to MongoDB");
+
+const db = client.db(process.env.MONGO_DB_NAME);
+const moviesCollection = db.collection("movies");
+
 const typeDefs = `#graphql
-  # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
-
-  # This "Book" type defines the queryable fields for every book in our data source.
-  type Book {
-    title: String
-    author: String
+  type Movie {
+    _id: ID!
+    title: String!
+    year: Int
+    poster: String
   }
-
-  # The "Query" type is special: it lists all of the available queries that
-  # clients can execute, along with the return type for each. In this
-  # case, the "books" query returns an array of zero or more Books (defined above).
   type Query {
-    books: [Book]
+    movies: [Movie]
   }
 `;
+
+const resolvers = {
+  Query: {
+    movies: async () => {
+      return await moviesCollection.find({}).toArray();
+    },
+  },
+};
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+});
+
+const { url } = await startStandaloneServer(server, {
+  listen: { port: 4000 },
+});
+
+console.log(`🚀  Server ready at: ${url}`);
