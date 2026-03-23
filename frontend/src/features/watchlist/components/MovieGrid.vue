@@ -5,13 +5,14 @@ import MovieCard from './MovieCard.vue'
 defineProps<{
   movies: Movie[]
 }>()
+
 </script>
 
 <template>
   <div class="movie-grid">
     <MovieCard 
       v-for="movie in movies" 
-      :key="movie.id" 
+      :key="movie._id" 
       :movie="movie"
     />
   </div>

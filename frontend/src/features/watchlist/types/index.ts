@@ -1,8 +1,8 @@
 export interface Movie {
-  id: string;
+  _id: string;
   title: string;
   year: number;
   poster?: string;
 }
 
-export type MovieWithoutId = Omit<Movie, "id">;
+export type MovieWithoutId = Omit<Movie, "_id">;

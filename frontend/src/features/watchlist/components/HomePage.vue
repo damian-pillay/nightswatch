@@ -1,37 +1,21 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useMovieStore } from '../stores/movieStore'
 import MovieGrid from './MovieGrid.vue'
-import MovieForm from './MovieForm.vue'
-import type { MovieWithoutId } from '../types'
+import { useMovies } from '../api/useMovies'
 
-const { movies, addMovie } = useMovieStore()
-const showForm = ref(false)
-
-const handleAddMovie = (movie: MovieWithoutId) => {
-  addMovie(movie)
-  showForm.value = false
-}
+const { result, loading, error } = useMovies()
 </script>
 
 <template>
   <div class="app">
     <header class="header">
       <h1 class="logo">NIGHTSWATCH</h1>
-      <button class="add-btn" @click="showForm = true">+</button>
     </header>
 
     <main class="main">
-      <MovieGrid 
-        :movies="movies" 
-      />
+      <div v-if="loading" class="loading">Loading...</div>
+      <div v-else-if="error" class="error">Error: {{ error.message }}</div>
+      <MovieGrid v-else :movies="result?.movies ?? []" />
     </main>
-
-    <MovieForm 
-      v-if="showForm" 
-      @add="handleAddMovie"
-      @close="showForm = false"
-    />
   </div>
 </template>
 
@@ -57,23 +41,18 @@ const handleAddMovie = (movie: MovieWithoutId) => {
   letter-spacing: 2px;
 }
 
-.add-btn {
-  width: 40px;
-  height: 40px;
-  border: none;
-  border-radius: 8px;
-  background: #8b5cf6;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.add-btn:hover {
-  background: #7c3aed;
-}
-
 .main {
   min-height: calc(100vh - 81px);
+}
+
+.loading,
+.error {
+  padding: 24px;
+  color: #a3a3a3;
+  font-size: 16px;
+}
+
+.error {
+  color: #ef4444;
 }
 </style>

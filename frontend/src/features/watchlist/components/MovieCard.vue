@@ -1,13 +1,10 @@
 <script setup lang="ts">
 import type { Movie } from '../types'
-import { useMovieStore } from '../stores/movieStore'
 import RedactedPoster from './RedactedPoster.vue'
 
 defineProps<{
   movie: Movie
 }>()
-
-const { deleteMovie } = useMovieStore()
 </script>
 
 <template>
@@ -18,13 +15,11 @@ const { deleteMovie } = useMovieStore()
       <h3 class="title">{{ movie.title }}</h3>
       <span class="year">{{ movie.year }}</span>
     </div>
-    <button class="delete-btn" @click="deleteMovie(movie.id)">×</button>
   </div>
 </template>
 
 <style scoped>
 .movie-card {
-  position: relative;
   width: 180px;
   background: #1a1a1a;
   border-radius: 8px;
@@ -59,29 +54,5 @@ const { deleteMovie } = useMovieStore()
 .year {
   font-size: 12px;
   color: #a3a3a3;
-}
-
-.delete-btn {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 28px;
-  height: 28px;
-  border: none;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.7);
-  color: #e5e5e5;
-  font-size: 18px;
-  cursor: pointer;
-  opacity: 0;
-  transition: opacity 0.2s ease, background 0.2s ease;
-}
-
-.movie-card:hover .delete-btn {
-  opacity: 1;
-}
-
-.delete-btn:hover {
-  background: #ef4444;
 }
 </style>
