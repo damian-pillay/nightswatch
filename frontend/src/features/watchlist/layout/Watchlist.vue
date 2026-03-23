@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import MovieGrid from './MovieGrid.vue'
+import MovieGrid from '../components/MovieGrid.vue';
 import { useMovies } from '../api/useMovies'
 
 const { result, loading, error } = useMovies()
