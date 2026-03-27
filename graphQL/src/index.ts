@@ -1,39 +1,23 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { config } from "dotenv";
-import { connectDb } from "./config/db";
+import { connectDb } from "./config/db.js";
+import { movieTypeDefs } from "./modules/movies/movie.schema.js";
+import { movieResolvers } from "./modules/movies/movie.resolvers.js";
+import { createContext } from "./modules/movies/movie.context.js";
+
 config();
 
 const db = await connectDb();
-const moviesCollection = db.collection("movies");
-
-const typeDefs = `#graphql
-  type Movie {
-    _id: ID!
-    title: String!
-    year: Int
-    poster: String
-  }
-  type Query {
-    movies: [Movie]
-  }
-`;
-
-const resolvers = {
-  Query: {
-    movies: async () => {
-      return await moviesCollection.find({}).toArray();
-    },
-  },
-};
 
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
+  typeDefs: [movieTypeDefs],
+  resolvers: [movieResolvers],
 });
 
 const { url } = await startStandaloneServer(server, {
+  context: async () => createContext(db),
   listen: { port: 4000 },
 });
 
-console.log(`🚀  Server ready at: ${url}`);
+console.log(`Server ready at: ${url}`);
