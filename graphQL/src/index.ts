@@ -4,15 +4,17 @@ import { config } from "dotenv";
 import { connectDb } from "./config/db.js";
 import { movieTypeDefs } from "./modules/movies/movie.schema.js";
 import { movieResolvers } from "./modules/movies/movie.resolvers.js";
-import { createContext } from "./modules/movies/movie.context.js";
+import { createContext } from "./context.js";
+import { watchlistTypeDefs } from "./modules/watchlists/watchlist.schema.js";
+import { watchlistResolvers } from "./modules/watchlists/watchlist.resolvers.js";
 
 config();
 
 const db = await connectDb();
 
 const server = new ApolloServer({
-  typeDefs: [movieTypeDefs],
-  resolvers: [movieResolvers],
+  typeDefs: [movieTypeDefs, watchlistTypeDefs],
+  resolvers: [movieResolvers, watchlistResolvers],
 });
 
 const { url } = await startStandaloneServer(server, {

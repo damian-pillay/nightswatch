@@ -12,6 +12,6 @@
     "skipLibCheck": true,
     "ignoreDeprecations": "6.0" 
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "src/context.ts"],
   "exclude": ["node_modules", "dist"]
 }

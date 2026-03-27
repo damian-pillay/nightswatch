@@ -1,0 +1,17 @@
+import { GraphQLResolveInfo } from "graphql";
+import { getProjection } from "../movies/movie.utils.js";
+
+export const watchlistResolvers = {
+  Query: {
+    watchlists: async (
+      _: any,
+      __: any,
+      context: any,
+      info: GraphQLResolveInfo,
+    ) => {
+      return context.services.watchlistService.getWatchlist(
+        getProjection(info),
+      );
+    },
+  },
+};
