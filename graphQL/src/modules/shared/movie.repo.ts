@@ -1,6 +1,7 @@
 import axios from "axios";
+import { getPosterURL } from "./movie.utils.js";
 
-export const createTmdbRepo = (apiKey: string) => {
+export const createMovieRepo = (apiKey: string) => {
   const baseURL = "https://api.themoviedb.org/3";
 
   const api = axios.create({
@@ -10,7 +11,12 @@ export const createTmdbRepo = (apiKey: string) => {
 
   const getMovieById = async (movieID: number) => {
     const response = await api.get(`/movie/${movieID}`);
-    return response.data;
+    const movie = response.data;
+
+    return {
+      ...movie,
+      poster_path: getPosterURL(movie.poster_path),
+    };
   };
 
   return {

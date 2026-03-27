@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from "graphql";
-import { getProjection } from "../movies/movie.utils.js";
+import { getProjection } from "../../utils/projection.js";
 
 export const watchlistResolvers = {
   Query: {

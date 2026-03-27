@@ -1,5 +1,5 @@
 export const watchlistTypeDefs = `#graphql
-  type TMDBMovie {
+  type Movie {
     id: Int!
     title: String
     overview: String
@@ -10,7 +10,7 @@ export const watchlistTypeDefs = `#graphql
   type Watchlist {
     _id: ID!
     user: String!
-    movies: [TMDBMovie]
+    movies: [Movie]
   }
 
   type Query {

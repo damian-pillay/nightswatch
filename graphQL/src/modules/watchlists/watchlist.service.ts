@@ -1,9 +1,9 @@
-import { createTmdbRepo } from "../shared/tmdb.repo.js";
+import { createMovieRepo } from "../shared/movie.repo.js";
 import { createWatchlistRepo } from "./watchlist.repo.js";
 
 export const createWatchlistService = (
   watchlistRepo: ReturnType<typeof createWatchlistRepo>,
-  tmdbRepo: ReturnType<typeof createTmdbRepo>,
+  movieRepo: ReturnType<typeof createMovieRepo>,
 ) => ({
   getWatchlist: async () => {
     const document = await watchlistRepo.getWatchlist();
@@ -12,6 +12,6 @@ export const createWatchlistService = (
 
   getMoviesForWatchlist: async (movieIDs: number[]) => {
     if (!movieIDs?.length) return [];
-    return await tmdbRepo.getMoviesbyId(movieIDs);
+    return await movieRepo.getMoviesbyId(movieIDs);
   },
 });
