@@ -13,7 +13,7 @@ defineProps<{
     <RedactedPoster v-else />
     <div class="info">
       <h3 class="title">{{ movie.title }}</h3>
-      <span class="year">{{ movie.year }}</span>
+      <span class="year">{{ movie.releaseDate }}</span>
     </div>
   </div>
 </template>

@@ -3,6 +3,7 @@ import MovieGrid from '../components/MovieGrid.vue';
 import { useMovies } from '../api/useMovies'
 
 const { result, loading, error } = useMovies()
+console.log(result)
 </script>
 
 <template>
@@ -14,7 +15,7 @@ const { result, loading, error } = useMovies()
     <main class="main">
       <div v-if="loading" class="loading">Loading...</div>
       <div v-else-if="error" class="error">Error: {{ error.message }}</div>
-      <MovieGrid v-else :movies="result?.movies ?? []" />
+      <MovieGrid v-else :movies="result?.watchlist?.movies ?? []" />
     </main>
   </div>
 </template>

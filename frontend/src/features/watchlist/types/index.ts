@@ -1,8 +1,12 @@
+export interface Watchlist {
+  movies: Movie[];
+}
+
 export interface Movie {
-  _id: string;
+  id: number;
   title: string;
-  year: number;
+  releaseDate: string;
   poster?: string;
 }
 
-export type MovieWithoutId = Omit<Movie, "_id">;
+export type MovieWithoutId = Omit<Watchlist, "_id">;
