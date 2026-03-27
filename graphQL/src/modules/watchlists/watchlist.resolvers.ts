@@ -14,4 +14,10 @@ export const watchlistResolvers = {
       );
     },
   },
+  Watchlist: {
+    movies: async (watchlist: any, _: any, { services }: any) => {
+      if (!watchlist.movies?.length) return [];
+      return services.watchlistService.getMoviesForWatchlist(watchlist.movies);
+    },
+  },
 };
