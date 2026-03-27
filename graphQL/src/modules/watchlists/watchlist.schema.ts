@@ -1,12 +1,4 @@
 export const watchlistTypeDefs = `#graphql
-  type Movie {
-    id: Int!
-    title: String
-    overview: String
-    poster_path: String
-    release_date: String
-  }
-
   type Watchlist {
     _id: ID!
     user: String!
@@ -14,7 +6,7 @@ export const watchlistTypeDefs = `#graphql
   }
 
   type Query {
-    watchlists: Watchlist
+    watchlist: Watchlist
   }
 `;
 

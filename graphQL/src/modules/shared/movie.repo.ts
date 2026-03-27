@@ -15,7 +15,8 @@ export const createMovieRepo = (apiKey: string) => {
 
     return {
       ...movie,
-      poster_path: getPosterURL(movie.poster_path),
+      releaseDate: movie.release_date,
+      poster: getPosterURL(movie.poster_path),
     };
   };
 

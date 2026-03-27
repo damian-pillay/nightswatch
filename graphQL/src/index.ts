@@ -5,13 +5,14 @@ import { connectDb } from "./config/db.js";
 import { createContext } from "./context.js";
 import { watchlistTypeDefs } from "./modules/watchlists/watchlist.schema.js";
 import { watchlistResolvers } from "./modules/watchlists/watchlist.resolvers.js";
+import { movieTypeDefs } from "./modules/shared/movie.schema.js";
 
 config();
 
 const db = await connectDb();
 
 const server = new ApolloServer({
-  typeDefs: [watchlistTypeDefs],
+  typeDefs: [watchlistTypeDefs, movieTypeDefs],
   resolvers: [watchlistResolvers],
 });
 

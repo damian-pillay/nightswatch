@@ -3,7 +3,7 @@ import { getProjection } from "../../utils/projection.js";
 
 export const watchlistResolvers = {
   Query: {
-    watchlists: async (
+    watchlist: async (
       _: any,
       __: any,
       context: any,
