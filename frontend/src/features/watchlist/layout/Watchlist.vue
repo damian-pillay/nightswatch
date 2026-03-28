@@ -3,7 +3,6 @@ import MovieGrid from '../components/MovieGrid.vue';
 import { useMovies } from '../api/useMovies'
 
 const { result, loading, error } = useMovies()
-console.log(result)
 </script>
 
 <template>

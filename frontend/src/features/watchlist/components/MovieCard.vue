@@ -2,9 +2,12 @@
 import type { Movie } from '../types'
 import RedactedPoster from './RedactedPoster.vue'
 
-defineProps<{
+const props = defineProps<{
   movie: Movie
 }>()
+
+const date = new Date(props.movie.releaseDate)
+const year = date.getFullYear()
 </script>
 
 <template>
@@ -13,7 +16,7 @@ defineProps<{
     <RedactedPoster v-else />
     <div class="info">
       <h3 class="title">{{ movie.title }}</h3>
-      <span class="year">{{ movie.releaseDate }}</span>
+      <span class="year">{{ year }}</span>
     </div>
   </div>
 </template>
@@ -25,6 +28,9 @@ defineProps<{
   border-radius: 8px;
   overflow: hidden;
   transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .movie-card:hover {
@@ -39,6 +45,10 @@ defineProps<{
 
 .info {
   padding: 12px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
 }
 
 .title {
@@ -49,9 +59,15 @@ defineProps<{
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: normal;
 }
 
 .year {
+  margin-top: auto;
   font-size: 12px;
   color: #a3a3a3;
 }
