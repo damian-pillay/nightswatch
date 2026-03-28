@@ -1,4 +1,4 @@
-import { createMovieRepo } from "../shared/movie.repo.js";
+import { createMovieRepo } from "../shared/movies/movie.repo.js";
 import { createWatchlistRepo } from "./watchlist.repo.js";
 import { WatchlistProjection } from "./watchlist.schema.js";
 

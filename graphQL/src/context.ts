@@ -1,8 +1,8 @@
-import { createMovieRepo } from "./modules/shared/movie.repo.js";
+import { createMovieRepo } from "./modules/shared/movies/movie.repo.js";
 import { createWatchlistRepo } from "./modules/watchlists/watchlist.repo.js";
 import { createWatchlistService } from "./modules/watchlists/watchlist.service.js";
 
-export const createContext = (db: any) => {
+export const createContext = (db: any, redis: any) => {
   const movieRepo = createMovieRepo(process.env.TMDB_API_KEY!);
 
   const watchlistCollection = db.collection("watchlists");
